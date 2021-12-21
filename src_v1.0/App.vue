@@ -1,8 +1,7 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <!-- <Header @addTodo="addTodo" /> -->
-      <Header ref="header" />
+      <Header :addTodo="addTodo" />
       <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
       <Footer
         :todos="todos"
@@ -29,7 +28,6 @@ export default {
     };
   },
   mounted() {
-    this.$refs.header.$on('addTodo',this.addTodo)
     setTimeout(() => {
       this.todos = getTodos()
     }, 1000);

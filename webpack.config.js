@@ -75,8 +75,11 @@ module.exports = {
     open: true, // 自动打开浏览器
     // quiet: true // 不做太多日志输出
     client: {
-      logging: 'error'
-    }
+      logging: 'none',
+      progress: true,  
+    },
+    hot: 'only',
+    
 
   },
   // 引入模块的解析
@@ -86,5 +89,6 @@ module.exports = {
       '@': resolve('src'),
       'vue$': 'vue/dist/vue.esm.js',  // 表示精准匹配
     }
-  }
+  },
+  devtool: 'cheap-module-source-map',
 }

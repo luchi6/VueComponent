@@ -11,7 +11,12 @@
 
 <script type="text/ecmascript-6">
 export default {
-  props: {},
+  props: {
+    addTodo: {
+      type: Function,
+      required: true,
+    },
+  },
   components: {},
   data() {
     return {
@@ -25,15 +30,15 @@ export default {
   methods: {
     add() {
       const title = this.title.trim();
-      if (!title) {
-        return;
+      if(!title){
+        return
       }
       const todo = {
         id: Date.now(),
         complete: false,
         title,
       };
-      this.$emit("addTodo", todo);
+      this.addTodo(todo);
       this.title = "";
     },
   },
