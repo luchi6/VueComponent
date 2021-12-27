@@ -79,8 +79,6 @@ module.exports = {
       progress: true,  
     },
     hot: 'only',
-    
-
   },
   // 引入模块的解析
   resolve: {

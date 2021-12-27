@@ -32,7 +32,7 @@ export default {
         id: Date.now(),
         complete: false,
         title,
-      };
+      }; 
       this.$emit("addTodo", todo);
       this.title = "";
     },

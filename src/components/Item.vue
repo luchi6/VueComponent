@@ -1,11 +1,16 @@
 <template>
-  <li :style="{background: bgcolor}" 
-  @mouseenter="handleEnter(true)" @mouseleave="handleEnter(false)">
+  <li
+    :style="{ background: bgcolor }"
+    @mouseenter="handleEnter(true)"
+    @mouseleave="handleEnter(false)"
+  >
     <label>
-      <input type="checkbox" v-model="isCheck"/>
-      <span>{{todo.title}}</span>
+      <input type="checkbox" v-model="isCheck" />
+      <span>{{ todo.title }}</span>
     </label>
-    <button class="btn btn-danger" v-show="isShow" @click="confirmDelete">删除</button>
+    <button class="btn btn-danger" v-show="isShow" @click="confirmDelete">
+      删除
+    </button>
   </li>
 </template>
 
@@ -13,9 +18,8 @@
 export default {
   props: {
     todo: Object,
-    deleteTodo: Function,
     index: Number,
-    updateTodo: Function
+    updateTodo: Function,
   },
   components: {},
   data() {
@@ -26,39 +30,39 @@ export default {
   },
   computed: {
     isCheck: {
-      get(){
-        return this.todo.complete
+      get() {
+        return this.todo.complete;
       },
-      set(val){
-        this.updateTodo(this.todo, val)
-      }
-    }
+      set(val) {
+        this.updateTodo(this.todo, val);
+      },
+    },
   },
   watch: {},
   created() {},
   mounted() {},
   methods: {
-    handleEnter(isEnter){
-      if(isEnter){
-        this.bgcolor = "#aaaaaa"
-        this.isShow = true
-      }else{
-        this.bgcolor = "#ffffff"
-        this.isShow = false
+    handleEnter(isEnter) {
+      if (isEnter) {
+        this.bgcolor = "#aaaaaa";
+        this.isShow = true;
+      } else {
+        this.bgcolor = "#ffffff";
+        this.isShow = false;
       }
     },
-    confirmDelete(){
-      if(confirm("确定删除吗")){
-        this.deleteTodo(this.index)
+    confirmDelete() {
+      if (confirm("确定删除吗")) {
+        // this.deleteTodo(this.index)
+        // 分发自定义事件
+        this.$vm.$emit("deleteTodo", this.index);
       }
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-
-
 /*item*/
 li {
   list-style: none;
@@ -92,5 +96,4 @@ li:before {
 li:last-child {
   border-bottom: none;
 }
-
 </style>

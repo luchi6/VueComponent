@@ -3,7 +3,7 @@
     <div class="todo-wrap">
       <!-- <Header @addTodo="addTodo" /> -->
       <Header ref="header" />
-      <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
+      <List :todos="todos" :updateTodo="updateTodo" />
       <Footer
         :todos="todos"
         :allCheck="allCheck"
@@ -29,9 +29,14 @@ export default {
     };
   },
   mounted() {
-    this.$refs.header.$on('addTodo',this.addTodo)
+    console.log("mounted()", this);
+
+    // 通过$vm绑定自定义事件监听
+    this.$vm.$on('deleteTodo', this.deleteTodo)
+
+    this.$refs.header.$on("addTodo", this.addTodo);
     setTimeout(() => {
-      this.todos = getTodos()
+      this.todos = getTodos();
     }, 1000);
   },
   methods: {
@@ -47,9 +52,9 @@ export default {
     clearAllCompleted() {
       this.todos = this.todos.filter((item) => !item.complete);
     },
-    updateTodo(todo,isCheck){
-      todo.complete = isCheck
-    }
+    updateTodo(todo, isCheck) {
+      todo.complete = isCheck;
+    },
   },
   watch: {
     todos: {
@@ -61,6 +66,11 @@ export default {
     Header,
     List,
     Footer,
+  },
+  beforeDestroy() {
+    // 解绑自定义事件监听
+    this.$refs.header.$off("addTodo");
+    this.$vm.$off('deleteTodo')
   },
 };
 </script>
