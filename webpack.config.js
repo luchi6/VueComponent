@@ -79,6 +79,14 @@ module.exports = {
       progress: true,  
     },
     hot: 'only',
+    proxy: {
+      // '/api': 'http://localhost:4000',
+      '/api': {
+        target: 'http://localhost:4000',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true, // 支持协议名的跨域
+      },
+    },
   },
   // 引入模块的解析
   resolve: {

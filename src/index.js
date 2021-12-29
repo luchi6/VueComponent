@@ -1,16 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import "./base.css"
+import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false
 
-// 给Vue的原型对象添加一个vm属性
-// Vue.prototype.$vm = new Vue()
+// 声明使用Vue插件
+Vue.use(VueResource) // 所有组件对象都有一个属性$http对象 get()/post()
 
 new Vue({
   el: "#root",
   render: h => h(App),
-  beforeCreate(){
-    Vue.prototype.$vm = this
-  }
 })
