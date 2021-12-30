@@ -21,7 +21,8 @@ module.exports = {
   output: {
     // __dirname:全局变量，当前文件所在目录的绝对路径
     path: resolve('dist'), // dist的绝对路径
-    filename: '[name].bundle.js' // 打包生成的文件名,name为入口的key:main
+    filename: '[name].bundle.js', // 打包生成的文件名,name为入口的key:main
+    publicPath: '/',
   },
   // 模块打包器
   module: {
@@ -29,8 +30,8 @@ module.exports = {
       // 处理ES6 => ES5
       {
         test: /\.m?js$/,
-        // exclude: /(node_modules|bower_components)/,
-        include: [resolve('src')],
+        exclude: /(node_modules|bower_components)/,
+        // include: [resolve('src')],
         use: {
           loader: 'babel-loader',
           options: {
@@ -63,7 +64,8 @@ module.exports = {
   // 插件
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: 'index.html',
+      filename: 'index.html' // 生成页面(在output指定的path下)
     }),
     new CleanWebpackPlugin(), // 清除打包文件夹dist
     new VueLoaderPlugin(),
@@ -78,15 +80,14 @@ module.exports = {
       logging: 'none',
       progress: true,  
     },
-    hot: 'only',
-    proxy: {
-      // '/api': 'http://localhost:4000',
-      '/api': {
-        target: 'http://localhost:4000',
-        pathRewrite: { '^/api': '' },
-        changeOrigin: true, // 支持协议名的跨域
-      },
-    },
+    // proxy: {
+    //   // '/api': 'http://localhost:4000',
+    //   '/api': {
+    //     target: 'http://localhost:4000',
+    //     pathRewrite: { '^/api': '' },
+    //     changeOrigin: true, // 支持协议名的跨域
+    //   },
+    // },
   },
   // 引入模块的解析
   resolve: {
